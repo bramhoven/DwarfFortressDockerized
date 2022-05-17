@@ -17,6 +17,7 @@ RUN mv /df_linux/libs/libgcc_s.so.1 /df_linux/libs/libgcc_s.so.1.bak
 # configure cli mode
 RUN sed -i 's/SOUND:YES/SOUND:NO/g' /df_linux/data/init/init.txt
 RUN sed -i 's/PRINT_MODE:2D/PRINT_MODE:TEXT/g' /df_linux/data/init/init.txt
+RUN sed -i 's/INTRO:ON/INTRO:OFF/g' /df_linux/data/init/init.txt
 
 # disable annoying output
 RUN rm -f /df_linux/gamelog.txt ; ln -sf /dev/null /df_linux/gamelog.txt
@@ -30,6 +31,7 @@ VOLUME /df_linux/data/save
 
 # setup ssh server for remote playing
 RUN useradd -d /df_linux -s /bin/bash -g root df
+RUN  usermod -aG sudo df
 RUN  echo 'df:dwarffortress' | chpasswd
 RUN chown df:root -R /df_linux
 RUN service ssh start
