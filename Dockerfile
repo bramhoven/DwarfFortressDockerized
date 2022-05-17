@@ -37,7 +37,6 @@ ENV LANGUAGE en_US:en
 
 # setup ssh server for remote playing
 RUN useradd -d /df_linux -s /bin/bash -g root df
-RUN  usermod -aG sudo df
 RUN  echo 'df:dwarffortress' | chpasswd
 RUN chown df:root -R /df_linux
 RUN service ssh start
