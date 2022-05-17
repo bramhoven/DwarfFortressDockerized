@@ -36,6 +36,7 @@ RUN service ssh start
 
 USER df
 RUN touch /df_linux/.profile
+RUN echo export LC_ALL=en_US.utf8 >> /df_linux/.profile
 RUN echo tmux set -g status off >> /df_linux/.profile
 RUN echo tmux a -t df >> /df_linux/.profile
 
