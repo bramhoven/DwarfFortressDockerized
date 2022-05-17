@@ -2,7 +2,7 @@ FROM amd64/debian:latest
 MAINTAINER Bram Hoven <info@bramhoven.nl>
 
 # Install packets: 
-RUN apt-get update && apt-get install -y apt-utils libsdl-image1.2 libsdl-ttf2.0-0 libgtk2.0-0 libglu1-mesa libopenal1 libncurses5 libncursesw5 zlib1g lbzip2 tmux openssh-server sudo
+RUN apt-get update && apt-get install -y apt-utils libsdl-image1.2 libsdl-ttf2.0-0 libgtk2.0-0 libglu1-mesa libopenal1 libncurses5 libncursesw5 zlib1g lbzip2 tmux openssh-server sudo locales
 
 ENV DF_VERSION 47_05
 
@@ -28,6 +28,12 @@ RUN ln -sf /dev/stderr /df_linux/stderr.log
 # create and export save dir
 RUN mkdir -p /df_linux/data/save
 VOLUME /df_linux/data/save
+
+# setup locales
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+ENV LC_ALL en_US.UTF-8 
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en     
 
 # setup ssh server for remote playing
 RUN useradd -d /df_linux -s /bin/bash -g root df
